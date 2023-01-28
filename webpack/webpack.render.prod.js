@@ -3,10 +3,10 @@ const webpackMerge = require('webpack-merge');
 const baseConfig = require('./webpack.base.js');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const devConfig = {
-  mode: 'development',
+const prodConfig = {
+  // 👇 这里改成生产环境
+  mode: 'production',
   entry: {
-    // 👇 对应渲染进程的 app.tsx 入口文件
     index: path.resolve(__dirname, '../app/renderer/app.tsx'),
   },
   output: {
@@ -49,7 +49,6 @@ const devConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // 👇 以此文件为模版，自动生成 HTML
       template: path.resolve(__dirname, '../app/renderer/index.html'),
       filename: path.resolve(__dirname, '../dist/index.html'),
       chunks: ['index'],
@@ -57,4 +56,4 @@ const devConfig = {
   ],
 };
 
-module.exports = webpackMerge.merge(baseConfig, devConfig);
+module.exports = webpackMerge.merge(baseConfig, prodConfig);

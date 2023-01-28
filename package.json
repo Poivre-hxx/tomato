@@ -2,17 +2,35 @@
   "name": "tomato",
   "version": "1.0.0",
   "description": "番茄钟",
-  "main": "./app/main/electron.ts",
+  "main": "./dist/electron.js",
   "scripts": {
     "start:main": "webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.js",
-    "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js"
+    "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js",
+    "build:main": "webpack --config ./webpack/webpack.main.prod.js",
+    "build:render": "webpack --config ./webpack/webpack.render.dev.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build": "npm run build:main && npm run build:render",
+    "install:electron": "ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron"
   },
-  "author": "",
+  "build": {
+    "appId": "tomato.ElectronReact",
+    "productName": "tomato",
+    "copyright": "Copyright © 2023 ${author}",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules/"
+    ],
+    "directories": {
+      "output": "package"
+    }
+  },
+  "author": "poivre",
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
     "date-fns": "^2.29.3",
-    "electron": "^11.1.1",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -20,6 +38,7 @@
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
+    "electron": "^12.1.0",
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
@@ -39,6 +58,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.0.0",
+    "electron-builder": "^23.6.0",
     "eslint": "^7.26.0",
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",

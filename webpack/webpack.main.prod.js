@@ -1,8 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const baseConfig = require('./webpack.base.js');
 const webpackMerge = require('webpack-merge');
 
-const mainConfig = {
+const prodConfig = {
   entry: path.resolve(__dirname, '../app/main/electron.ts'),
   target: 'electron-main',
   output: {
@@ -10,7 +11,14 @@ const mainConfig = {
     path: path.resolve(__dirname, '../dist'),
   },
   devtool: 'inline-source-map',
-  mode: 'development',
+  // 👇 这里改成生产环境
+  mode: 'production',
+  plugins: [
+    // 用于打包后的主进程中正确获取__dirname
+    new webpack.DefinePlugin({
+      __dirname: '__dirname',
+    }),
+  ],
 };
 
-module.exports = webpackMerge.merge(baseConfig, mainConfig);
+module.exports = webpackMerge.merge(baseConfig, prodConfig);
