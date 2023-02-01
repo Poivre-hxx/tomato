@@ -63,18 +63,12 @@ function Tomato() {
         setMin('25');
         setSec('00');
         setIsRestart(false);
-      } else if (isStop === true) {
-        setTime(1500);
-        setMin('25');
-        setSec('00');
-        setIsStart(false);
-        setIsStop(false);
       } else {
         setTime(time - 1);
         if (time % 60 < 10) {
           setSec('0' + (time % 60));
         } else {
-          setSec((time % 60) + '');
+          setSec(String(time % 60) + '');
         }
         if (Math.floor(time / 60) < 10) {
           setMin('0' + Math.floor(time / 60));
