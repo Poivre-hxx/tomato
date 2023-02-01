@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-import { Button, Modal } from 'antd';
 import './index.less';
 import Play from '@assets/play.png';
 import Pause from '@assets/pause.png';
@@ -10,7 +9,11 @@ import Restart from '@assets/restart.png';
 import Music from '@assets/disc.png';
 import MusicOff from '@assets/discOff.png';
 import Mp3 from '@assets/music.mp3';
-import BG from '@assets/bg.png';
+import BGEdit from '@assets/imageedit.png';
+import BG1 from '@assets/bg.png';
+import BG2 from '@assets/bg2.png';
+import TringleUp from '@assets/eject.png';
+import TringleDown from '@assets/ejectDown.png';
 
 function Instrument() {
   const [isMusic, setIsMusic] = useState(false);
@@ -53,8 +56,6 @@ function Tomato() {
   const [min, setMin] = useState('25');
   const [sec, setSec] = useState('00');
   const [isRestart, setIsRestart] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   if (isStart && !isPause) {
     setTimeout(() => {
       if (isRestart === true) {
@@ -104,21 +105,45 @@ function Tomato() {
     }, 1200);
   };
 
-  const showModal = () => {
-    setOpen(true);
-    console.log(123);
+  const minAdd = () => {
+    time + 60 < 3600 ? setTime(time + 60) : setTime(3600);
+    console.log(minAdd);
+    showTime();
   };
-
-  const handleOk = () => {
-    setLoading(true);
+  const minMin = () => {
+    time - 60 > 0 ? setTime(time - 60) : setTime(0);
+    console.log(minMin);
+    showTime();
+  };
+  const secAdd = () => {
+    time + 1 < 3600 ? setTime(time + 1) : setTime(3600);
+    console.log(secAdd);
+    showTime();
+  };
+  const secMin = () => {
+    time - 1 > 0 ? setTime(time - 1) : setTime(0);
+    console.log(secMin);
+    showTime();
+  };
+  const showTime = () => {
     setTimeout(() => {
-      setLoading(false);
-      setOpen(false);
-    }, 1000);
+      if (time % 60 < 10) {
+        setSec('0' + (time % 60));
+      } else {
+        setSec(String(time % 60) + '');
+      }
+      if (Math.floor(time / 60) < 10) {
+        setMin('0' + Math.floor(time / 60));
+      } else {
+        setMin(String(Math.floor(time / 60)));
+      }
+    }, 100);
   };
 
-  const handleCancle = () => {
-    setOpen(false);
+  const [BG, setBG] = useState(BG1);
+
+  const BGChange = () => {
+    BG === BG1 ? setBG(BG2) : setBG(BG1);
   };
 
   const bgStyle = {
@@ -130,25 +155,25 @@ function Tomato() {
     return (
       <div>
         <div styleName="backg" style={bgStyle}>
-          <div styleName="time" onClick={showModal}>
+          <div styleName="trinsup">
+            <div onClick={minAdd}>
+              <img src={TringleUp} alt="" styleName="trin" />
+            </div>
+            <div onClick={secAdd}>
+              <img src={TringleUp} alt="" styleName="trin" />
+            </div>
+          </div>
+          <div styleName="timestart">
             {min}:{sec}
           </div>
-          <Modal
-            open={open}
-            onOk={handleOk}
-            onCancel={handleOk}
-            footer={[
-              <Button key="back" onClick={handleCancle}>
-                Return
-              </Button>,
-              <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-                Submit
-              </Button>,
-            ]}
-          >
-            <div>请输入您的番茄时间（单位为秒）</div>
-            <input />
-          </Modal>
+          <div styleName="trinsdown">
+            <div onClick={minMin}>
+              <img src={TringleDown} alt="" styleName="trin" />
+            </div>
+            <div onClick={secMin}>
+              <img src={TringleDown} alt="" styleName="trin" />
+            </div>
+          </div>
           <div styleName="onStart">
             <img src={Play} alt="" onClick={onStart} />
           </div>
@@ -163,6 +188,9 @@ function Tomato() {
             {min}:{sec}
           </div>
           <div styleName="control">
+            <div onClick={BGChange}>
+              <img src={BGEdit} alt="" />
+            </div>
             <div onClick={onRestart}>
               <img src={Restart} alt="" />
             </div>
@@ -185,6 +213,9 @@ function Tomato() {
             {min}:{sec}
           </div>
           <div styleName="control">
+            <div onClick={BGChange}>
+              <img src={BGEdit} alt="" />
+            </div>
             <div onClick={onRestart}>
               <img src={Restart} alt="" />
             </div>
