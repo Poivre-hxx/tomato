@@ -3,3 +3,4 @@ dist
 webpack
 package.json
 package
+package-lock.json
