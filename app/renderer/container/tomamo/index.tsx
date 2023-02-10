@@ -27,7 +27,7 @@ function Instrument() {
   if (isMusic) {
     return (
       <>
-        <audio id="instrument">
+        <audio controls loop id="instrument">
           <source src={Mp3} type="audio/mpeg" />
         </audio>
         <div onClick={onMusic}>
@@ -38,7 +38,7 @@ function Instrument() {
   } else {
     return (
       <>
-        <audio id="instrument">
+        <audio controls loop id="instrument">
           <source src={Mp3} type="audio/mpeg" />
         </audio>
         <div onClick={onMusic}>
