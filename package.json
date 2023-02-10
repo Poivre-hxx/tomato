@@ -1,6 +1,6 @@
 {
   "name": "tomato",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "番茄钟",
   "main": "./dist/electron.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "build": "npm run build:main && npm run build:render",
-    "install:electron": "ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron"
+    "install:electron": "ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron",
+    "electron:icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
   "build": {
     "appId": "tomato.ElectronReact",
@@ -24,6 +25,12 @@
     ],
     "directories": {
       "output": "package"
+    },
+    "mac": {
+      "icon": "./build/icons/256x256.png"
+    },
+    "win": {
+      "icon": "./build/icons/256x256.png"
     }
   },
   "author": "poivre",
@@ -38,7 +45,6 @@
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
-    "electron": "^12.1.0",
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
     "@babel/plugin-transform-modules-commonjs": "^7.14.0",
@@ -58,7 +64,9 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^3.0.0",
+    "electron": "^12.1.0",
     "electron-builder": "^23.6.0",
+    "electron-icon-builder": "^2.0.1",
     "eslint": "^7.26.0",
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",

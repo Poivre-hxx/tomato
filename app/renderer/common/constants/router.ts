@@ -11,7 +11,7 @@ export const ROUTER_KEY = {
 
 export const ROUTER_ENTRY = [
   {
-    url: 'https://github.com/Poivre-hxx/tomato',
+    url: 'https://github.com/Poivre-hxx/tomato#readme',
     key: 'intro',
     text: '介绍',
   },

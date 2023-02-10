@@ -14,6 +14,7 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    icon: path.join(__dirname, '../../build/icons/256*256.png'),
     webPreferences: {
       devTools: true,
       nodeIntegration: true,
